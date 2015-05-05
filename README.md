@@ -2,4 +2,6 @@
 just a shell note
 
 ### 2015 0505
-begin to write learning note with Haroopad for Linux Shell Scripting Cookbook (Second Edition)
+Begin to write note with **Haroopad** editor for ++Linux Shell Scripting Cookbook (Second Edition)++
+
+complete Chapter1
