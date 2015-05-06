@@ -36,7 +36,7 @@ xargs有一个选项`-I`，`-I {}`指定了替换字符串。对于每一个命�
 ##### 结合find使用xargs
 xargs和find两者结合使用可以让任务变得更轻松。不过人们通常却是以一种错误的组合方式使用它们。例如：
 `$ find . -type f -name "*.txt"  -print | xargs rm -f`
-这样做很危险。有时可能会删除不必要删除的文件。我们没法预测分隔find命令输出结果的定界符究竟是什么（'\n'或者' '）。很多文件名中都可能会包含空格符（' '），因此xargs很可能会误认为它们是定界符（例如，hell text.txt会被xargs误解为hell和text.txt）。
+这样做有时可能达不到预期的效果。我们没法预测分隔find命令输出结果的定界符究竟是什么（'\n'或者' '）。很多文件名中都可能会包含空格符（' '），因此xargs很可能会误认为它们是定界符（例如，hell text.txt会被xargs误解为hell和text.txt）。
 只要我们把find的输出作为xargs的输入，就必须将-print0与find结合使用，以字符null（'\0'）来分隔输出。
 用find匹配并列出所有的 .txt文件，然后用xargs将这些文件删除：
 `$ find . -type f -name "*.txt" -print0 | xargs -0 rm -f`
