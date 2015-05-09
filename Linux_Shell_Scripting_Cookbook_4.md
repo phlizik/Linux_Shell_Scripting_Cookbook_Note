@@ -1,3 +1,4 @@
+[TOC]
 ### Chapter4 让文本飞
 
 #### 正则表达式
@@ -232,4 +233,38 @@ cut是一个将文本按列进行切分的小工具。它可以指定分隔每�
 可以使用`--output-delimiter` 指定打印列字段之间的分隔符。
 
 #### sed 
+已匹配字符串标记（&），在sed中我们可以用&标记匹配式样的字符串，这样就能够在替换字符串时使用已匹配的内容。
+```
+$ echo this is an example | sed 's/\w\+/[&]/g'
+[this] [is] [an] [example]
+```
+#### awk
+awk 脚本的结构为：
+```
+awk ' BEGIN {statements} pattern {statements} END {end statements}'
+```
+awk命令的工作方式如下所注：
+1. 执行`BEGIN {commands}` 语句块中的语句
+2. 从文件或者stdin中读取一行，然后执行pattern {statements}。 重复这个过程，直到文件被读取完毕。
+3. 当读取到输入流末尾时，执行END {statements}语句块。
 
+awk 命令中的一些特殊变量：
+* `NR`：表示记录数量，在执行过程中对应当前行号。
+* `NF`：表示字段数量，在执行过程中对应于当前行的字段数。
+* `$0`: 这个变量包含执行过程中当前行的文本内容。
+* `$1`: 这个变量包含第一个字段的文本内容。
+* `$2`: 这个变量包含第二个字段的文本内容。
+
+可以借助`-v`选项将外部值传递给awk：`awk '{print v1,v2}' v1=$var1 v2=$var2 filename` ；
+借助 `-F "delimiter"`明确指定一个定界符：`awk -F : '{print $NF}' filename` 或者 `awk 'BEGIN {FS= ":"} {print $NF}' filename`
+可以使用`getline`读取行，并且可以使用循环
+```
+for(i = 0; i < 10; i++ ) {print $i;}
+```
+或者
+```
+for(i in array) {print array[i];}
+```
+
+#### paste
+可以使用paste 命令实现按列拼接。 `-d` 可以指定定界符
